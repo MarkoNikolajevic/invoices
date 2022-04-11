@@ -1,16 +1,31 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::selection{
+  @apply bg-purple-500 text-white;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@layer base {
+  html {
+    font-family: 'Spartan', sans-serif;
+  }
 }
 
-* {
-  box-sizing: border-box;
+h1 {
+  @apply text-xl md:text-3xl font-bold;
+}
+
+h2 {
+  @apply text-xl font-bold;
+}
+
+h3 {
+  @apply text-base font-bold;
+}
+
+h4 {
+  @apply text-xs font-bold;
 }
