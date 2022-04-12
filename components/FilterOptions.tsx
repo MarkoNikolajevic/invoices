@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 const FilterOptions = () => {
   return (
     <motion.div
-      className='flex w-48 flex-col rounded-lg bg-white p-6 dark:bg-blue-600'
+      className='absolute top-12 flex w-48 flex-col rounded-lg bg-white p-6 shadow-dropdown-light dark:bg-blue-600 dark:shadow-dropdown-dark'
       initial='collapsed'
       animate='open'
       exit='collapsed'

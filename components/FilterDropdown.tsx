@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import FilterOptions from './FilterOptions';
 
 const FilterDropdown = () => {
@@ -10,16 +10,16 @@ const FilterDropdown = () => {
   };
 
   return (
-    <div className='relative inline-flex w-48 flex-col'>
-      <div className='mb-6 w-full'>
+    <div className='relative inline-flex flex-col items-center justify-center'>
+      <div className='w-full'>
         <button
           type='button'
           aria-expanded='true'
           aria-haspopup='true'
-          className='flex w-full items-center justify-center text-xs font-bold text-blue-900 dark:text-white'
+          className='flex w-full items-center text-xs font-bold text-blue-900 dark:text-white'
           onClick={() => setIsOpen(!isOpen)}
         >
-          Filter <span className='hidden md:block'> by status</span>
+          Filter&nbsp;<span className='hidden md:block'> by status</span>
           <svg
             width='11'
             height='7'
