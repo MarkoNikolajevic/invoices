@@ -6,24 +6,24 @@ import { Invoice } from '../interface/invoice'
 import '../styles/globals.css'
 import Navbar from '../components/Navbar';
 
-export const InvoiceContext = createContext<any | null>([])
+export const InvoiceContext = createContext<any>(null);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [invoices, setInvoices] = useState<Invoice | null>(null)
+  const [invoices, setInvoices] = useState<Invoice | null>();
   const getInvoices = async () => {
-    let fetchedInvoice: Invoice | null
+    let fetchedInvoice: Invoice | null;
 
     fetchedInvoice = (await supabaseClient
       .from<Invoice>('invoices')
       .select()
-      .order('createdAt', { ascending: false })) as unknown as Invoice
+      .order('createdAt', { ascending: false })) as unknown as Invoice;
 
-    setInvoices(fetchedInvoice)
-  }
+    setInvoices(fetchedInvoice);
+  };
 
   useEffect(() => {
-    getInvoices()
-  }, [])
+    getInvoices();
+  }, []);
 
   return (
     <ThemeProvider attribute='class'>
