@@ -70,10 +70,10 @@ module.exports = {
           draft: '#dfe3fa'
         }
       },
-      content: {
-        select: 'url(../public/icons/icon-arrow-down.svg)'
+      spacing: {
+        18: '4.5rem'
       }
     }
   },
   plugins: [require('@tailwindcss/forms')]
-}
+};
