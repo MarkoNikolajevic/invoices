@@ -75,7 +75,8 @@ module.exports = {
       },
       boxShadow: {
         'dropdown-light': '0px 10px 20px rgba(72, 84, 159, 0.25)',
-        'dropdown-dark': '0px 10px 20px rgba(0, 0, 0, 0.25)'
+        'dropdown-dark': '0px 10px 20px rgba(0, 0, 0, 0.25)',
+        invoice: '0px 10px 10px -10px rgba(72, 84, 159, 0.10)'
       }
     }
   },

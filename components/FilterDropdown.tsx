@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import FilterOptions from './FilterOptions';
+import { cn } from '../utils/classes';
 
 const FilterDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const cn = (...classes: string[]) => {
-    return classes.filter(Boolean).join(' ');
-  };
 
   return (
     <div className='relative inline-flex flex-col items-center justify-center'>
