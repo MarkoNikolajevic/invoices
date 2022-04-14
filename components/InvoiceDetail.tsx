@@ -1,6 +1,7 @@
 import { Invoice } from '../interface/invoice';
 import { formatCurrency, formatDate } from '../utils/formatData';
 import GoBackButton from './GoBackButton';
+import InvoiceAction from './InvoiceAction';
 import InvoiceItems from './InvoiceItems';
 import InvoiceStatus from './InvoiceStatus';
 
@@ -9,10 +10,13 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
     <main className='relative w-full'>
       <div className='mx-6 mt-8 flex flex-col md:mx-12 md:mt-14 lg:mx-auto lg:mt-18 lg:w-4/5'>
         <GoBackButton />
-        <div className='mt-8 rounded-lg bg-white px-8 py-6 shadow-invoice dark:bg-blue-800'>
+        <div className='mt-8 rounded-lg bg-white px-8 py-6 shadow-invoice dark:bg-blue-800 md:flex md:items-center md:justify-between md:py-8'>
           <div className='flex items-center justify-between'>
-            <p className='text-gray text-xs font-medium dark:text-gray-300'>Status</p>
+            <p className='text-gray text-xs font-medium dark:text-gray-300 md:mr-4'>Status</p>
             <InvoiceStatus invoice={invoice} />
+          </div>
+          <div className='hidden md:flex'>
+            <InvoiceAction />
           </div>
         </div>
         <div className='mt-8 mb-14 rounded-lg bg-white px-8 py-6 shadow-invoice dark:bg-blue-800 md:py-8'>
@@ -77,6 +81,9 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className='fixed bottom-0 right-0 left-0 flex justify-between bg-white p-6 dark:bg-blue-800 md:hidden'>
+        <InvoiceAction />
       </div>
     </main>
   );

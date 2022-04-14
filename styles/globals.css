@@ -29,3 +29,7 @@ h3 {
 h4 {
   @apply text-xs font-normal;
 }
+
+.btn-action {
+  @apply h-12 rounded-3xl px-6 text-xs font-bold transition duration-200;
+}
