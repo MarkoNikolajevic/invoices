@@ -33,3 +33,40 @@ h4 {
 .btn-action {
   @apply h-12 rounded-3xl px-6 text-xs font-bold transition duration-200;
 }
+
+/* datepicker */
+.date-picker {
+  @apply h-12 rounded border bg-white py-4 px-5 text-xs font-bold caret-purple-500 outline-none transition-all dark:bg-blue-800 dark:text-white dark:outline-none border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500;
+}
+.react-datepicker {
+  font-family: 'Spartan', sans-serif !important;
+}
+
+.react-datepicker__header {
+  @apply !border-none bg-white dark:bg-blue-600;
+}
+
+.react-datepicker__navigation {
+  @apply !top-[12%];
+}
+
+.react-datepicker__triangle {
+  @apply hidden;
+}
+
+.react-datepicker__current-month {
+  @apply text-blue-900 dark:text-white;
+}
+
+.react-datepicker__day-names {
+  @apply hidden;
+}
+.react-datepicker__day {
+  @apply text-blue-900 dark:text-white font-bold;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--selected:hover,
+.react-datepicker__day:hover {
+  @apply !text-purple-500 !bg-transparent;
+}

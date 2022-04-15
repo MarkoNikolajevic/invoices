@@ -3,7 +3,11 @@ import { useContext } from 'react';
 import { InvoiceContext } from '../pages/_app';
 import FilterDropdown from './FilterDropdown';
 
-const Header = () => {
+const Header = ({
+  setShowAddInvoice
+}: {
+  setShowAddInvoice: (showAddInvoice: boolean) => void;
+}) => {
   const { invoices } = useContext(InvoiceContext);
 
   return (
@@ -31,6 +35,7 @@ const Header = () => {
         aria-label='Add new invoice'
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        onClick={() => setShowAddInvoice(true)}
       >
         <span className='mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-white'>
           <svg width='11' height='11' xmlns='http://www.w3.org/2000/svg'>
