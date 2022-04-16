@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import { InvoiceContext } from '../pages/_app';
 import { Invoice } from '../interface/invoice';
-import { formatDate, formatCurrency } from '../utils/formatData';
+import { formatDate, formatCurrency } from '../utils/manageFormData';
 import InvoiceStatus from './InvoiceStatus';
 import IconArrowRight from './IconArrowRight';
 

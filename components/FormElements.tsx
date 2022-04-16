@@ -1,7 +1,5 @@
-import { FC, forwardRef, LegacyRef, useState } from 'react';
+import { forwardRef, LegacyRef, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
-import { useForm } from 'react-hook-form';
-import { Invoice } from '../interface/invoice';
 import { cn } from '../utils/classes';
 import IconCalendar from './IconCalendar';
 

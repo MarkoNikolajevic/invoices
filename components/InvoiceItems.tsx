@@ -1,5 +1,5 @@
 import { Invoice, InvoiceItem } from '../interface/invoice';
-import { formatCurrency } from '../utils/formatData';
+import { formatCurrency } from '../utils/manageFormData';
 
 const InvoiceItems = ({ invoice }: { invoice: Invoice }) => {
   return (

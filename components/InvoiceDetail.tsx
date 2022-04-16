@@ -1,5 +1,5 @@
 import { Invoice } from '../interface/invoice';
-import { formatCurrency, formatDate } from '../utils/formatData';
+import { formatCurrency, formatDate } from '../utils/manageFormData';
 import GoBackButton from './GoBackButton';
 import InvoiceAction from './InvoiceAction';
 import InvoiceItems from './InvoiceItems';

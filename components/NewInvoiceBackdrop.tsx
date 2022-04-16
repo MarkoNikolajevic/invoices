@@ -30,14 +30,14 @@ const NewInvoiceBackdrop = ({
   };
   return (
     <motion.div
-      className='absolute top-0 left-0 h-full w-full bg-[#000000e1]'
+      className='absolute top-0 left-0 h-screen w-full bg-[#000000e1]'
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={() => setShowAddInvoice(false)}
     >
       <motion.div
-        className='h-screen w-full overflow-scroll rounded-r-[1.25rem] bg-white py-8 px-6 dark:bg-blue-700 md:w-6/12'
+        className='h-screen w-full overflow-scroll rounded-r-[1.25rem] bg-white py-8 px-6 dark:bg-blue-700 md:w-10/12 lg:w-6/12'
         onClick={(e) => e.stopPropagation()}
         variants={slideIn}
         initial='hidden'
