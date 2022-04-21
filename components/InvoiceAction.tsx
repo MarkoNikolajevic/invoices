@@ -4,8 +4,13 @@ import { InvoiceContext } from '../pages/_app';
 import { Invoice } from '../interface/invoice';
 import supabaseClient from '../lib/supabase';
 
-const InvoiceAction = () => {
+const InvoiceAction = ({ setShowDelete }: { setShowDelete: (showDelete: boolean) => void }) => {
   const { getInvoice } = useContext(InvoiceContext);
+
+  const showDeleteModal = () => {
+    setShowDelete(true);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <>
@@ -24,6 +29,7 @@ const InvoiceAction = () => {
         aria-label='Delete'
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        onClick={showDeleteModal}
       >
         Delete
       </motion.button>
