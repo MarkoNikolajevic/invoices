@@ -37,7 +37,7 @@ const NewInvoiceBackdrop = ({
       onClick={() => setShowAddInvoice(false)}
     >
       <motion.div
-        className='h-screen w-full overflow-scroll rounded-r-[1.25rem] bg-white py-8 px-6 dark:bg-blue-700 md:w-10/12 lg:w-6/12'
+        className='h-screen w-full overflow-scroll rounded-r-[1.25rem] bg-white pt-8 dark:bg-blue-700 md:w-10/12 lg:w-6/12'
         onClick={(e) => e.stopPropagation()}
         variants={slideIn}
         initial='hidden'
@@ -46,14 +46,14 @@ const NewInvoiceBackdrop = ({
       >
         <button
           aria-label='Go back'
-          className='flex h-4 w-20 items-center justify-between text-xs font-bold'
+          className='ml-6 flex h-4 w-20 items-center justify-between text-xs font-bold'
           onClick={() => setShowAddInvoice(false)}
           type='button'
         >
           <IconArrowLeft />
           Go back
         </button>
-        <h1 className='my-6 text-blue-900 dark:text-white md:text-3xl'>New Invoice</h1>
+        <h1 className='my-6 ml-6 text-blue-900 dark:text-white'>New Invoice</h1>
         <AddInvoiceForm setShowAddInvoice={setShowAddInvoice} />
       </motion.div>
     </motion.div>

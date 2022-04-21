@@ -40,7 +40,7 @@ h4 {
 
 /* datepicker */
 .date-picker {
-  @apply h-12 rounded border bg-white py-4 px-5 text-xs font-bold caret-purple-500 outline-none transition-all dark:bg-blue-800 dark:text-white dark:outline-none border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500;
+  @apply h-12 rounded border bg-white py-4 px-5 text-xs font-bold outline-none transition-all dark:bg-blue-800 dark:text-white dark:outline-none border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500;
 }
 .react-datepicker {
   font-family: 'Spartan', sans-serif !important;
@@ -71,6 +71,7 @@ h4 {
 
 .react-datepicker__day--selected,
 .react-datepicker__day--selected:hover,
-.react-datepicker__day:hover {
+.react-datepicker__day:hover,
+.react-datepicker__day--keyboard-selected {
   @apply !text-purple-500 !bg-transparent;
 }

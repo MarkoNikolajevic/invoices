@@ -40,8 +40,9 @@ const AddInvoiceForm = ({
       status: 'pending',
       total: calculateTotalPrice(data.items)
     };
-    await supabaseClient.from('invoices').insert(data);
-    getInvoice();
+    // await supabaseClient.from('invoices').insert(data);
+    // getInvoice();
+    console.log(data);
   };
 
   useEffect(() => {
@@ -51,7 +52,7 @@ const AddInvoiceForm = ({
   }, [isSubmitSuccessful, reset]);
 
   return (
-    <form onSubmit={handleSubmit(createNewInvoice)}>
+    <form onSubmit={handleSubmit(createNewInvoice)} className='mx-6'>
       <h4 className='text-purple-500'>Bill From</h4>
       <div className='mt-6 mb-10 grid grid-cols-2 gap-6 md:grid-cols-3'>
         <div className='col-span-full flex flex-col'>
@@ -159,6 +160,7 @@ const AddInvoiceForm = ({
           <input
             type='text'
             id='client-email'
+            placeholder='e.g. email@example.com'
             {...register('clientEmail', { required: true })}
             className={cn(
               'input',
@@ -249,7 +251,7 @@ const AddInvoiceForm = ({
       <div className='grid grid-cols-2 gap-6'>
         <div className='col-span-full flex flex-col md:col-start-1 md:col-end-2'>
           <Label htmlFor='created-at' label='Invoice Date' />
-          <DateInput id='created-at' />
+          <DateInput id='created-at' readOnly={true} />
         </div>
         <div className='col-span-full flex flex-col md:col-start-2 md:col-end-3'>
           <Label htmlFor='payment-terms' label='Payment Terms' />
@@ -275,6 +277,7 @@ const AddInvoiceForm = ({
           <input
             type='text'
             id='description'
+            placeholder='e.g. Graphic Design Service'
             {...register('description', { required: true })}
             className={cn(
               'input',
@@ -361,6 +364,30 @@ const AddInvoiceForm = ({
       >
         + Add New Item
       </button>
+      <div className='sticky bottom-0 -mx-6 flex bg-white p-6 dark:bg-blue-800'>
+        <button
+          className='btn-action mr-auto bg-gray-100 text-gray-400'
+          type='button'
+          aria-label='Discard'
+          onClick={() => setShowAddInvoice(false)}
+        >
+          Discard
+        </button>
+        <button
+          className='btn-action mr-2 bg-gray-100 text-gray-400 hover:bg-gray-300 dark:bg-blue-600 dark:text-white hover:dark:bg-white hover:dark:text-gray-400'
+          type='button'
+          aria-label='Save as Draft'
+        >
+          Save as Draft
+        </button>
+        <button
+          className='btn-action bg-purple-500 text-white hover:bg-purple-400'
+          type='submit'
+          aria-label='Save and Send'
+        >
+          Save & Send
+        </button>
+      </div>
     </form>
   );
 };

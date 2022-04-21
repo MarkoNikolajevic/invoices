@@ -1,5 +1,6 @@
 import { forwardRef, LegacyRef, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { cn } from '../utils/classes';
 import IconCalendar from './IconCalendar';
 
@@ -62,7 +63,7 @@ export const DateInput = ({ ...props }) => {
         dateFormat='d MMM yyyy'
         customInput={<CustomInput />}
         calendarClassName='bg-white dark:bg-blue-600 !border-none font-serif p-6'
-        readOnly
+        readOnly={props.readOnly}
       />
     </>
   );
