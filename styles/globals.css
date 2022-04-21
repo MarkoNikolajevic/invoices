@@ -34,6 +34,10 @@ h4 {
   @apply h-12 rounded-3xl px-6 text-xs font-bold transition duration-200;
 }
 
+.input {
+  @apply h-12 rounded border bg-white py-4 px-5 text-xs font-bold caret-purple-500 outline-none transition-all dark:bg-blue-800 dark:text-white dark:outline-none;
+}
+
 /* datepicker */
 .date-picker {
   @apply h-12 rounded border bg-white py-4 px-5 text-xs font-bold caret-purple-500 outline-none transition-all dark:bg-blue-800 dark:text-white dark:outline-none border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500;

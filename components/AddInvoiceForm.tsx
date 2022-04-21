@@ -7,7 +7,7 @@ import { InvoiceContext } from '../pages/_app';
 import { cn } from '../utils/classes';
 import { defaultFormValues } from '../utils/defaultFormValues';
 import { calculateTotalPrice, createId } from '../utils/manageFormData';
-import { DateInput, ErrorMessage, Input, Label } from './FormElements';
+import { DateInput, ErrorMessage, Label } from './FormElements';
 import IconDelete from './IconDelete';
 
 const AddInvoiceForm = ({
@@ -63,14 +63,34 @@ const AddInvoiceForm = ({
             />
             <ErrorMessage error={errors.senderAddress?.street?.type} />
           </div>
-          <Input type='text' id='sender-street' error={errors.senderAddress?.street} />
+          <input
+            type='text'
+            id='sender-street'
+            {...register('senderAddress.street', { required: true })}
+            className={cn(
+              'input',
+              errors.senderAddress?.street
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
         <div className='col-start-1 col-end-2 flex flex-col'>
           <div className='flex justify-between'>
             <Label htmlFor='sender-city' label='City' error={errors.senderAddress?.city} />
             <ErrorMessage error={errors.senderAddress?.city?.type} />
           </div>
-          <Input type='text' id='sender-city' error={errors.senderAddress?.city} />
+          <input
+            type='text'
+            id='sender-city'
+            {...register('senderAddress.city', { required: true })}
+            className={cn(
+              'input',
+              errors.senderAddress?.city
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
         <div className='col-start-2 col-end-3 flex flex-col'>
           <div className='flex justify-between'>
@@ -81,14 +101,34 @@ const AddInvoiceForm = ({
             />
             <ErrorMessage error={errors.senderAddress?.postCode?.type} />
           </div>
-          <Input type='text' id='sender-postCode' error={errors.senderAddress?.postCode} />
+          <input
+            type='text'
+            id='sender-postCode'
+            {...register('senderAddress.postCode', { required: true })}
+            className={cn(
+              'input',
+              errors.senderAddress?.postCode
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
         <div className='col-span-full flex flex-col md:col-start-3 md:col-end-4'>
           <div className='flex justify-between'>
             <Label htmlFor='sender-country' label='Country' error={errors.senderAddress?.country} />
             <ErrorMessage error={errors.senderAddress?.country?.type} />
           </div>
-          <Input type='text' id='sender-country' error={errors.senderAddress?.country} />
+          <input
+            type='text'
+            id='sender-country'
+            {...register('senderAddress.country', { required: true })}
+            className={cn(
+              'input',
+              errors.senderAddress?.country
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
       </div>
 
@@ -99,14 +139,34 @@ const AddInvoiceForm = ({
             <Label htmlFor='client-name' label="Client's Name" error={errors.clientName} />
             <ErrorMessage error={errors.clientName?.type} />
           </div>
-          <Input type='text' id='client-name' error={errors.clientName} />
+          <input
+            type='text'
+            id='client-name'
+            {...register('clientName', { required: true })}
+            className={cn(
+              'input',
+              errors.clientName
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
         <div className='col-span-full flex flex-col'>
           <div className='flex justify-between'>
             <Label htmlFor='client-email' label="Client's Email" error={errors.clientEmail} />
             <ErrorMessage error={errors.clientEmail?.type} />
           </div>
-          <Input type='text' id='client-email' error={errors.clientEmail} />
+          <input
+            type='text'
+            id='client-email'
+            {...register('clientEmail', { required: true })}
+            className={cn(
+              'input',
+              errors.clientEmail
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
         <div className='col-span-full flex flex-col'>
           <div className='flex justify-between'>
@@ -117,14 +177,34 @@ const AddInvoiceForm = ({
             />
             <ErrorMessage error={errors.clientAddress?.street?.type} />
           </div>
-          <Input type='text' id='client-street' error={errors.clientAddress?.street} />
+          <input
+            type='text'
+            id='client-street'
+            {...register('clientAddress.street', { required: true })}
+            className={cn(
+              'input',
+              errors.clientAddress?.street
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
         <div className='col-start-1 col-end-2 flex flex-col'>
           <div className='flex justify-between'>
             <Label htmlFor='client-city' label='City' error={errors.clientAddress?.city} />
             <ErrorMessage error={errors.clientAddress?.city?.type} />
           </div>
-          <Input type='text' id='client-city' error={errors.clientAddress?.city} />
+          <input
+            type='text'
+            id='client-city'
+            {...register('clientAddress.city', { required: true })}
+            className={cn(
+              'input',
+              errors.clientAddress?.city
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
         <div className='col-start-2 col-end-3 flex flex-col'>
           <div className='flex justify-between'>
@@ -135,14 +215,34 @@ const AddInvoiceForm = ({
             />
             <ErrorMessage error={errors.clientAddress?.postCode?.type} />
           </div>
-          <Input type='text' id='client-postCode' error={errors.clientAddress?.postCode} />
+          <input
+            type='text'
+            id='client-postCode'
+            {...register('clientAddress.postCode', { required: true })}
+            className={cn(
+              'input',
+              errors.clientAddress?.postCode
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
         <div className='col-span-full flex flex-col md:col-start-3 md:col-end-4'>
           <div className='flex justify-between'>
             <Label htmlFor='client-country' label='Country' error={errors.clientAddress?.country} />
             <ErrorMessage error={errors.clientAddress?.country?.type} />
           </div>
-          <Input type='text' id='client-country' error={errors.clientAddress?.country} />
+          <input
+            type='text'
+            id='client-country'
+            {...register('clientAddress.country', { required: true })}
+            className={cn(
+              'input',
+              errors.clientAddress?.country
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
       </div>
 
@@ -162,6 +262,7 @@ const AddInvoiceForm = ({
                 ? 'border-red-500'
                 : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
             )}
+            defaultValue={defaultFormValues.paymentTerms}
           >
             <option value='1'>Net 1 Day</option>
             <option value='7'>Net 7 Days</option>
@@ -171,7 +272,17 @@ const AddInvoiceForm = ({
         </div>
         <div className='col-span-full flex flex-col'>
           <Label htmlFor='description' label='Project / Description' />
-          <Input type='text' id='description' error={errors.description} />
+          <input
+            type='text'
+            id='description'
+            {...register('description', { required: true })}
+            className={cn(
+              'input',
+              errors.description
+                ? 'border-red-500'
+                : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+            )}
+          />
         </div>
       </div>
       <h2 className='mb-6 mt-16 text-gray-400 dark:text-gray-500'>Item List</h2>
@@ -180,25 +291,54 @@ const AddInvoiceForm = ({
           <div key={field.id} className='mb-12 grid grid-cols-11 gap-6 md:grid-cols-12'>
             <div className='col-span-full flex flex-col md:col-span-4'>
               <Label label='Item name' htmlFor='item-name' />
-              <Input type='text' id={`items.${index}.name`} error={errors.items?.[index].name} />
+              <input
+                type='text'
+                id={`items.${index}.name`}
+                {...register(`items.${index}.name`, { required: true })}
+                className={cn(
+                  'input',
+                  errors.items?.[index]?.name
+                    ? 'border-red-500'
+                    : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+                )}
+              />
             </div>
             <div className='col-span-3 flex flex-col md:col-span-2'>
               <Label label='Qty.' htmlFor='item-quantity' />
-              <Input
+              <input
                 type='text'
                 id={`items.${index}.quantity`}
-                error={errors.items?.[index].quantity}
+                defaultValue={`${field.quantity}`}
+                {...register(`items.${index}.quantity`, { required: true })}
+                className={cn(
+                  'input',
+                  errors.items?.[index]?.quantity
+                    ? 'border-red-500'
+                    : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+                )}
               />
             </div>
             <div className='col-span-4 flex flex-col md:col-span-3'>
               <Label label='Price' htmlFor='item-price' />
-              <Input type='text' id={`items.${index}.price`} error={errors.items?.[index].price} />
+              <input
+                type='text'
+                id={`items.${index}.price`}
+                defaultValue={`${field.price}`}
+                {...register(`items.${index}.price`, { required: true })}
+                className={cn(
+                  'input',
+                  errors.items?.[index]?.price
+                    ? 'border-red-500'
+                    : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
+                )}
+              />
             </div>
             <div className='relative col-span-4 flex flex-col md:col-span-3'>
               <Label label='Total' htmlFor='item-total' />
               <input
                 type='text'
                 id={`items.${index}.total`}
+                defaultValue={`${field.total}`}
                 readOnly
                 className='h-12 rounded border-0 bg-transparent py-4 px-5 text-xs font-bold outline-none transition-all dark:text-white dark:outline-none'
               />
