@@ -22,11 +22,11 @@ const AddInvoiceForm = ({
     control,
     reset,
     setValue,
+    getValues,
     watch,
-    formState: { errors, isSubmitSuccessful, isValid }
-  } = useForm<Invoice>({
-    mode: 'onBlur'
-  });
+    trigger,
+    formState: { errors, isSubmitSuccessful }
+  } = useForm<Invoice>();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -41,10 +41,23 @@ const AddInvoiceForm = ({
       status: 'pending',
       total: calculateTotalPrice(data.items)
     };
+    await trigger();
     await supabaseClient.from('invoices').insert(data);
     getInvoices();
     setShowAddInvoice(false);
-    console.log(data);
+  };
+
+  const createDraft: SubmitHandler<Invoice> = async ({ ...data }) => {
+    data = {
+      ...data,
+      id: createId(2, 4),
+      paymentDue: dayjs().add(data.paymentTerms, 'day').format('D MMM YYYY'),
+      status: 'draft',
+      total: calculateTotalPrice(data.items)
+    };
+    await supabaseClient.from('invoices').insert(data);
+    getInvoices();
+    setShowAddInvoice(false);
   };
 
   useEffect(() => {
@@ -314,19 +327,20 @@ const AddInvoiceForm = ({
                 type='text'
                 id={`items.${index}.quantity`}
                 defaultValue={`${field.quantity}`}
-                {...register(`items.${index}.quantity`, { required: true })}
+                {...register(`items.${index}.quantity`, {
+                  required: true,
+                  onBlur: () =>
+                    setValue(
+                      `items.${index}.total`,
+                      watch(`items.${index}.quantity`) * watch(`items.${index}.price`)
+                    )
+                })}
                 className={cn(
                   'input',
                   errors.items?.[index]?.quantity
                     ? 'border-red-500'
                     : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
                 )}
-                onBlur={() =>
-                  setValue(
-                    `items.${index}.total`,
-                    watch(`items.${index}.quantity`) * watch(`items.${index}.price`)
-                  )
-                }
               />
             </div>
             <div className='col-span-4 flex flex-col md:col-span-3'>
@@ -335,25 +349,27 @@ const AddInvoiceForm = ({
                 type='text'
                 id={`items.${index}.price`}
                 defaultValue={`${field.price}`}
-                {...register(`items.${index}.price`, { required: true })}
+                {...register(`items.${index}.price`, {
+                  required: true,
+                  onBlur: () =>
+                    setValue(
+                      `items.${index}.total`,
+                      watch(`items.${index}.quantity`) * watch(`items.${index}.price`)
+                    )
+                })}
                 className={cn(
                   'input',
                   errors.items?.[index]?.price
                     ? 'border-red-500'
                     : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
                 )}
-                onBlur={() =>
-                  setValue(
-                    `items.${index}.total`,
-                    watch(`items.${index}.quantity`) * watch(`items.${index}.price`)
-                  )
-                }
               />
             </div>
             <div className='relative col-span-4 flex flex-col md:col-span-3'>
               <Label label='Total' htmlFor='item-total' />
               <input
                 type='text'
+                {...register(`items.${index}.total`, { value: field.total })}
                 id={`items.${index}.total`}
                 defaultValue={watch(`items.${index}.quantity`) * watch(`items.${index}.price`)}
                 disabled
@@ -391,6 +407,7 @@ const AddInvoiceForm = ({
           className='btn-action mr-2 bg-gray-100 text-gray-400 hover:bg-gray-300 dark:bg-blue-600 dark:text-white hover:dark:bg-white hover:dark:text-gray-400'
           type='button'
           aria-label='Save as Draft'
+          onClick={() => createDraft(getValues())}
         >
           Save as Draft
         </button>
