@@ -94,7 +94,7 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
             <InvoiceItems invoice={invoice} />
             <div className='mt-6 flex items-center justify-between rounded-b-lg bg-blue-900 p-6 text-white md:mt-8 md:p-8'>
               <p className='text-xxs'>Amount Due</p>
-              <p className='text-2xl font-bold'>{formatCurrency(invoice?.total!)}</p>
+              <p className='text-2xl font-bold'>{formatCurrency(invoice?.total)}</p>
             </div>
           </div>
         </div>
