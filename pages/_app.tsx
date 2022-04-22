@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider attribute='class'>
-      <InvoiceContext.Provider value={{ invoices, getInvoices }}>
+      <InvoiceContext.Provider value={{ invoices, getInvoices, setInvoices }}>
         <div className='flex min-h-screen flex-col bg-gray-200 transition dark:bg-blue-700 lg:flex-row'>
           <Navbar />
           <Component {...pageProps} />

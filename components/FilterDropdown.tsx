@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import FilterOptions from './FilterOptions';
 import { cn } from '../utils/classes';
+import { Invoice } from '../interface/invoice';
+import supabaseClient from '../lib/supabase';
+import { InvoiceContext } from '../pages/_app';
 interface IFilterDropdown {
   id: number;
   value: string;
@@ -9,7 +12,20 @@ interface IFilterDropdown {
 }
 
 const FilterDropdown = () => {
+  const { getInvoices, setInvoices } = useContext(InvoiceContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const getFiltered = async (filtered: string) => {
+    let fetchedInvoice: Invoice | null;
+
+    fetchedInvoice = (await supabaseClient
+      .from<Invoice>('invoices')
+      .select()
+      .filter('status', 'eq', filtered)
+      .order('createdAt', { ascending: false })) as unknown as Invoice;
+
+    setInvoices(fetchedInvoice);
+  };
 
   const [check, setCheck] = useState<IFilterDropdown[]>([
     {
@@ -33,6 +49,7 @@ const FilterDropdown = () => {
     setCheck(
       check.map((item) => {
         if (item.id === id) {
+          getFiltered(item.value);
           return {
             ...item,
             checked: !item.checked
@@ -41,6 +58,10 @@ const FilterDropdown = () => {
         return { ...item, checked: false };
       })
     );
+
+    if (check.filter((item) => item.checked).length > 0) {
+      getInvoices();
+    }
   };
 
   return (
