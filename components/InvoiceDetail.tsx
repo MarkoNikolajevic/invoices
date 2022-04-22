@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react';
 import { Invoice } from '../interface/invoice';
 import { formatCurrency, formatDate } from '../utils/manageFormData';
 import DeleteModal from './DeleteModal';
+import EditInvoiceForm from './EditInvoiceForm';
 import GoBackButton from './GoBackButton';
 import InvoiceAction from './InvoiceAction';
+import InvoiceBackdrop from './InvoiceBackdrop';
 import InvoiceItems from './InvoiceItems';
 import InvoiceStatus from './InvoiceStatus';
 
 const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
+  const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
   useEffect(() => {}, [invoice.status]);
@@ -23,7 +26,11 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
             <InvoiceStatus invoice={invoice} />
           </div>
           <div className='hidden md:flex'>
-            <InvoiceAction setShowDelete={setShowDelete} invoice={invoice} />
+            <InvoiceAction
+              setShowDelete={setShowDelete}
+              setShowEdit={setShowEdit}
+              invoice={invoice}
+            />
           </div>
         </div>
         <div className='mt-8 mb-14 rounded-lg bg-white px-8 py-6 shadow-invoice dark:bg-blue-800 md:py-8'>
@@ -90,9 +97,14 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
         </div>
       </div>
       <div className='sticky bottom-0 right-0 left-0 flex justify-between bg-white p-6 dark:bg-blue-800 md:hidden'>
-        <InvoiceAction setShowDelete={setShowDelete} invoice={invoice} />
+        <InvoiceAction setShowDelete={setShowDelete} setShowEdit={setShowEdit} invoice={invoice} />
       </div>
       <AnimatePresence>
+        {showEdit && (
+          <InvoiceBackdrop title={`Edit #${invoice.id}`} onClick={() => setShowEdit(false)}>
+            <EditInvoiceForm setShowEdit={setShowEdit} invoice={invoice} />
+          </InvoiceBackdrop>
+        )}
         {showDelete && <DeleteModal invoice={invoice} setShowDelete={setShowDelete} />}
       </AnimatePresence>
     </main>

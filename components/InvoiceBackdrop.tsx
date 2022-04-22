@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion';
-import AddInvoiceForm from './AddInvoiceForm';
-import GoBackButton from './GoBackButton';
 import IconArrowLeft from './IconArrowLeft';
 
-const NewInvoiceBackdrop = ({
-  setShowAddInvoice
+const InvoiceBackdrop = ({
+  title,
+  children,
+  onClick,
+  ...props
 }: {
-  setShowAddInvoice: (setShowAddInvoice: boolean) => void;
+  onClick: () => void;
+  title: string;
+  children: React.ReactNode;
 }) => {
   const slideIn = {
     hidden: {
@@ -34,7 +37,7 @@ const NewInvoiceBackdrop = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={() => setShowAddInvoice(false)}
+      onClick={onClick}
     >
       <motion.div
         className='h-screen w-full overflow-scroll rounded-r-[1.25rem] bg-white pt-8 dark:bg-blue-700 md:w-10/12 lg:w-6/12'
@@ -47,17 +50,17 @@ const NewInvoiceBackdrop = ({
         <button
           aria-label='Go back'
           className='ml-6 flex h-4 w-20 items-center justify-between text-xs font-bold'
-          onClick={() => setShowAddInvoice(false)}
+          onClick={onClick}
           type='button'
         >
           <IconArrowLeft />
           Go back
         </button>
-        <h1 className='my-6 ml-6 text-blue-900 dark:text-white'>New Invoice</h1>
-        <AddInvoiceForm setShowAddInvoice={setShowAddInvoice} />
+        <h1 className='my-6 ml-6 text-blue-900 dark:text-white'>{title}</h1>
+        {children}
       </motion.div>
     </motion.div>
   );
 };
 
-export default NewInvoiceBackdrop;
+export default InvoiceBackdrop;

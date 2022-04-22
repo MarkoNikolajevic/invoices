@@ -1,73 +1,65 @@
 import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
-import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useForm, SubmitHandler, useFieldArray, Controller } from 'react-hook-form';
 import { Invoice } from '../interface/invoice';
 import supabaseClient from '../lib/supabase';
 import { InvoiceContext } from '../pages/_app';
 import { cn } from '../utils/classes';
-import { defaultFormValues } from '../utils/defaultFormValues';
-import { calculateTotalPrice, createId } from '../utils/manageFormData';
+import { calculateTotalPrice } from '../utils/manageFormData';
 import { DateInput, ErrorMessage, Label } from './FormElements';
 import IconDelete from './IconDelete';
 
-const AddInvoiceForm = ({
-  setShowAddInvoice
+const EditInvoiceForm = ({
+  setShowEdit,
+  invoice
 }: {
-  setShowAddInvoice: (showAddInvoice: boolean) => void;
+  setShowEdit: (showEdit: boolean) => void;
+  invoice: Invoice;
 }) => {
   const { getInvoices } = useContext(InvoiceContext);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     control,
     reset,
     setValue,
-    getValues,
     watch,
-    trigger,
     formState: { errors, isSubmitSuccessful }
-  } = useForm<Invoice>();
+  } = useForm<Invoice>({
+    defaultValues: invoice
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'items'
   });
 
-  const createNewInvoice: SubmitHandler<Invoice> = async ({ ...data }) => {
+  const updateInvoice: SubmitHandler<Invoice> = async (data) => {
     data = {
       ...data,
-      id: createId(2, 4),
-      paymentDue: dayjs().add(data.paymentTerms, 'day').format('D MMM YYYY'),
+      createdAt: dayjs(data.createdAt).format('YYYY-MM-DD'),
+      paymentDue: dayjs(data.createdAt).add(data.paymentTerms, 'day').format('YYYY-MM-DD'),
       status: 'pending',
       total: calculateTotalPrice(data.items)
     };
-    await trigger();
-    await supabaseClient.from('invoices').insert(data);
+    await supabaseClient.from('invoices').update(data).match({ id: invoice.id });
     getInvoices();
-    setShowAddInvoice(false);
-  };
-
-  const createDraft: SubmitHandler<Invoice> = async ({ ...data }) => {
-    data = {
-      ...data,
-      id: createId(2, 4),
-      paymentDue: dayjs().add(data.paymentTerms, 'day').format('D MMM YYYY'),
-      status: 'draft',
-      total: calculateTotalPrice(data.items)
-    };
-    await supabaseClient.from('invoices').insert(data);
-    getInvoices();
-    setShowAddInvoice(false);
+    router.push('/');
+    setShowEdit(false);
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset(defaultFormValues);
+      reset(invoice);
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, invoice]);
 
   return (
-    <form onSubmit={handleSubmit(createNewInvoice)} className='mx-6'>
+    <form onSubmit={handleSubmit(updateInvoice)} className='mx-6'>
       <h4 className='text-purple-500'>Bill From</h4>
       <div className='mt-6 mb-10 grid grid-cols-2 gap-6 md:grid-cols-3'>
         <div className='col-span-full flex flex-col'>
@@ -279,7 +271,6 @@ const AddInvoiceForm = ({
                 ? 'border-red-500'
                 : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
             )}
-            defaultValue={defaultFormValues.paymentTerms}
           >
             <option value='1'>Net 1 Day</option>
             <option value='7'>Net 7 Days</option>
@@ -394,33 +385,25 @@ const AddInvoiceForm = ({
       >
         + Add New Item
       </button>
-      <div className='sticky bottom-0 -mx-6 flex bg-white p-6 dark:bg-blue-700'>
-        <button
-          className='btn-action mr-auto bg-gray-100 text-gray-400'
-          type='button'
-          aria-label='Discard'
-          onClick={() => setShowAddInvoice(false)}
-        >
-          Discard
-        </button>
+      <div className='sticky bottom-0 -mx-6 flex justify-end bg-white p-6 dark:bg-blue-700'>
         <button
           className='btn-action mr-2 bg-gray-100 text-gray-400 hover:bg-gray-300 dark:bg-blue-600 dark:text-white hover:dark:bg-white hover:dark:text-gray-400'
           type='button'
-          aria-label='Save as Draft'
-          onClick={() => createDraft(getValues())}
+          aria-label='Cancel'
+          onClick={() => setShowEdit(false)}
         >
-          Save as Draft
+          Cancel
         </button>
         <button
           className='btn-action bg-purple-500 text-white hover:bg-purple-400'
           type='submit'
-          aria-label='Save and Send'
+          aria-label='Save Changes'
         >
-          Save & Send
+          Save Changes
         </button>
       </div>
     </form>
   );
 };
 
-export default AddInvoiceForm;
+export default EditInvoiceForm;

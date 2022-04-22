@@ -75,3 +75,7 @@ h4 {
 .react-datepicker__day--keyboard-selected {
   @apply !text-purple-500 !bg-transparent;
 }
+
+.react-datepicker__day--outside-month {
+  @apply opacity-10;
+}

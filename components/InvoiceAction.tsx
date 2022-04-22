@@ -6,12 +6,19 @@ import supabaseClient from '../lib/supabase';
 
 const InvoiceAction = ({
   invoice,
-  setShowDelete
+  setShowDelete,
+  setShowEdit
 }: {
   invoice: Invoice;
   setShowDelete: (showDelete: boolean) => void;
+  setShowEdit: (showEdit: boolean) => void;
 }) => {
   const { getInvoices } = useContext(InvoiceContext);
+
+  const editInvoice = () => {
+    setShowEdit(true);
+    window.scrollTo(0, 0);
+  };
 
   const showDeleteModal = () => {
     setShowDelete(true);
@@ -35,6 +42,7 @@ const InvoiceAction = ({
         aria-label='Edit'
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        onClick={editInvoice}
       >
         Edit
       </motion.button>
