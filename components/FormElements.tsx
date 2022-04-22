@@ -45,7 +45,14 @@ export const DateInput = ({ ...props }) => {
   const [startDate, setStartDate] = useState(new Date());
   const CustomInput = forwardRef(
     ({ value, onClick }: { value?: any; onClick?: any }, ref: LegacyRef<HTMLDivElement>) => (
-      <div onClick={onClick} ref={ref} className='date-picker flex w-full justify-between'>
+      <div
+        onClick={onClick}
+        ref={ref}
+        className={cn(
+          'date-picker flex w-full justify-between',
+          props.readOnly ? 'read-only:opacity-50' : ''
+        )}
+      >
         {value}
         <IconCalendar />
       </div>
