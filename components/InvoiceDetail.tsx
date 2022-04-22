@@ -102,14 +102,14 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
       <div
         className={cn(
           'sticky bottom-0 right-0 left-0 flex bg-white p-6 dark:bg-blue-800 md:hidden',
-          invoice.status !== 'paid' ? 'justify-between' : 'justify-center'
+          invoice?.status !== 'paid' ? 'justify-between' : 'justify-center'
         )}
       >
         <InvoiceAction setShowDelete={setShowDelete} setShowEdit={setShowEdit} invoice={invoice} />
       </div>
       <AnimatePresence>
         {showEdit && (
-          <InvoiceBackdrop title={`Edit #${invoice.id}`} onClick={() => setShowEdit(false)}>
+          <InvoiceBackdrop title={`Edit #${invoice?.id}`} onClick={() => setShowEdit(false)}>
             <EditInvoiceForm setShowEdit={setShowEdit} invoice={invoice} />
           </InvoiceBackdrop>
         )}
