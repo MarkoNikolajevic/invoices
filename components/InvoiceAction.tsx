@@ -4,12 +4,27 @@ import { InvoiceContext } from '../pages/_app';
 import { Invoice } from '../interface/invoice';
 import supabaseClient from '../lib/supabase';
 
-const InvoiceAction = ({ setShowDelete }: { setShowDelete: (showDelete: boolean) => void }) => {
-  const { getInvoice } = useContext(InvoiceContext);
+const InvoiceAction = ({
+  invoice,
+  setShowDelete
+}: {
+  invoice: Invoice;
+  setShowDelete: (showDelete: boolean) => void;
+}) => {
+  const { getInvoices } = useContext(InvoiceContext);
 
   const showDeleteModal = () => {
     setShowDelete(true);
     window.scrollTo(0, 0);
+  };
+
+  const markAsPaid = async () => {
+    if (invoice.status === 'paid') return;
+
+    invoice.status = 'paid';
+    await supabaseClient.from('invoices').update({ status: 'paid' }).match({ id: invoice.id });
+
+    getInvoices();
   };
 
   return (
@@ -33,15 +48,18 @@ const InvoiceAction = ({ setShowDelete }: { setShowDelete: (showDelete: boolean)
       >
         Delete
       </motion.button>
-      <motion.button
-        className='btn-action bg-purple-500 text-white hover:bg-purple-400'
-        type='button'
-        aria-label='Mark as paid'
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        Mark as Paid
-      </motion.button>
+      {invoice.status !== 'paid' && (
+        <motion.button
+          className='btn-action bg-purple-500 text-white hover:bg-purple-400'
+          type='button'
+          aria-label='Mark as paid'
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => markAsPaid()}
+        >
+          Mark as Paid
+        </motion.button>
+      )}
     </>
   );
 };

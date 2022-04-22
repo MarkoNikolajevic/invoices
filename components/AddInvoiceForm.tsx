@@ -15,13 +15,14 @@ const AddInvoiceForm = ({
 }: {
   setShowAddInvoice: (showAddInvoice: boolean) => void;
 }) => {
-  const { getInvoice } = useContext(InvoiceContext);
+  const { getInvoices } = useContext(InvoiceContext);
   const {
     register,
     handleSubmit,
     control,
     reset,
     setValue,
+    watch,
     formState: { errors, isSubmitSuccessful, isValid }
   } = useForm<Invoice>({
     mode: 'onBlur'
@@ -40,8 +41,9 @@ const AddInvoiceForm = ({
       status: 'pending',
       total: calculateTotalPrice(data.items)
     };
-    // await supabaseClient.from('invoices').insert(data);
-    // getInvoice();
+    await supabaseClient.from('invoices').insert(data);
+    getInvoices();
+    setShowAddInvoice(false);
     console.log(data);
   };
 
@@ -319,6 +321,12 @@ const AddInvoiceForm = ({
                     ? 'border-red-500'
                     : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
                 )}
+                onBlur={() =>
+                  setValue(
+                    `items.${index}.total`,
+                    watch(`items.${index}.quantity`) * watch(`items.${index}.price`)
+                  )
+                }
               />
             </div>
             <div className='col-span-4 flex flex-col md:col-span-3'>
@@ -334,6 +342,12 @@ const AddInvoiceForm = ({
                     ? 'border-red-500'
                     : 'border-gray-300 text-blue-900 focus:border-purple-500 dark:border-blue-600 focus:dark:border-purple-500'
                 )}
+                onBlur={() =>
+                  setValue(
+                    `items.${index}.total`,
+                    watch(`items.${index}.quantity`) * watch(`items.${index}.price`)
+                  )
+                }
               />
             </div>
             <div className='relative col-span-4 flex flex-col md:col-span-3'>
@@ -341,8 +355,8 @@ const AddInvoiceForm = ({
               <input
                 type='text'
                 id={`items.${index}.total`}
-                defaultValue={`${field.total}`}
-                readOnly
+                defaultValue={watch(`items.${index}.quantity`) * watch(`items.${index}.price`)}
+                disabled
                 className='h-12 rounded border-0 bg-transparent py-4 px-5 text-xs font-bold outline-none transition-all dark:text-white dark:outline-none'
               />
               <div className='absolute top-1/2 right-0 flex -translate-y-1/2 items-center justify-end bg-none pt-4'>

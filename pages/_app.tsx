@@ -10,6 +10,7 @@ export const InvoiceContext = createContext<any>(null);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [invoices, setInvoices] = useState<Invoice | null>();
+
   const getInvoices = async () => {
     let fetchedInvoice: Invoice | null;
 
