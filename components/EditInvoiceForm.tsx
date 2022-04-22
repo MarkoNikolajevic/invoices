@@ -320,6 +320,7 @@ const EditInvoiceForm = ({
                 defaultValue={`${field.quantity}`}
                 {...register(`items.${index}.quantity`, {
                   required: true,
+                  pattern: /^[0-9]+$/i,
                   onBlur: () =>
                     setValue(
                       `items.${index}.total`,
@@ -342,6 +343,7 @@ const EditInvoiceForm = ({
                 defaultValue={`${field.price}`}
                 {...register(`items.${index}.price`, {
                   required: true,
+                  pattern: /^[0-9]+$/i,
                   onBlur: () =>
                     setValue(
                       `items.${index}.total`,
