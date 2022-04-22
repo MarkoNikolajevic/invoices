@@ -28,5 +28,5 @@ export const createId = (lettersLength: number, numbersLength: number): string =
 };
 
 export const calculateTotalPrice = (items: InvoiceItem[]): number => {
-  return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  return items?.reduce((total, item) => total + item.price * item.quantity, 0);
 };
