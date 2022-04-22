@@ -8,13 +8,14 @@ import { AnimatePresence } from 'framer-motion';
 import InvoiceBackdrop from '../components/InvoiceBackdrop';
 import LoadingIcon from '../components/LoadingIcon';
 import AddInvoiceForm from '../components/AddInvoiceForm';
+import { cn } from '../utils/classes';
 
 const Home: NextPage = () => {
   const { invoices } = useContext(InvoiceContext);
   const [showAddInvoice, setShowAddInvoice] = useState(false);
 
   return (
-    <main className='relative w-full'>
+    <main className={cn('relative w-full', showAddInvoice ? 'h-screen overflow-hidden' : '')}>
       <div className='mx-6 mt-8 flex flex-col md:mx-12 md:mt-14 lg:mx-auto lg:mt-18 lg:w-4/5'>
         <Header setShowAddInvoice={setShowAddInvoice} />
         {invoices?.data.length > 0 && <InvoicePreview />}

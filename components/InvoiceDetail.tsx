@@ -1,6 +1,7 @@
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Invoice } from '../interface/invoice';
+import { cn } from '../utils/classes';
 import { formatCurrency, formatDate } from '../utils/manageFormData';
 import DeleteModal from './DeleteModal';
 import EditInvoiceForm from './EditInvoiceForm';
@@ -17,7 +18,7 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
   useEffect(() => {}, [invoice.status]);
 
   return (
-    <main className='relative w-full'>
+    <main className={cn('relative w-full', showEdit ? 'h-screen overflow-hidden' : '')}>
       <div className='mx-6 mt-8 flex flex-col md:mx-12 md:mt-14 lg:mx-auto lg:mt-18 lg:w-4/5'>
         <GoBackButton />
         <div className='mt-8 rounded-lg bg-white px-8 py-6 shadow-invoice dark:bg-blue-800 md:flex md:items-center md:justify-between md:py-8'>
@@ -96,7 +97,12 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
           </div>
         </div>
       </div>
-      <div className='sticky bottom-0 right-0 left-0 flex justify-between bg-white p-6 dark:bg-blue-800 md:hidden'>
+      <div
+        className={cn(
+          'sticky bottom-0 right-0 left-0 flex bg-white p-6 dark:bg-blue-800 md:hidden',
+          invoice.status !== 'paid' ? 'justify-between' : 'justify-center'
+        )}
+      >
         <InvoiceAction setShowDelete={setShowDelete} setShowEdit={setShowEdit} invoice={invoice} />
       </div>
       <AnimatePresence>
