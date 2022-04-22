@@ -39,19 +39,21 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
             <div className='flex flex-col'>
               <h3 className='text-xs font-bold text-blue-900 dark:text-white'>
                 <span className='text-gray-400'>#</span>
-                {invoice.id}
+                {invoice?.id}
               </h3>
-              <p className='mt-1 text-xs text-gray-400 dark:text-gray-300'>{invoice.description}</p>
+              <p className='mt-1 text-xs text-gray-400 dark:text-gray-300'>
+                {invoice?.description}
+              </p>
             </div>
             <div className='mt-8 flex flex-col md:mt-0 md:text-right'>
               <p className='text-xxs text-gray-400 dark:text-gray-300'>
-                {invoice.senderAddress.street}
+                {invoice?.senderAddress.street}
                 <br />
-                {invoice.senderAddress.city}
+                {invoice?.senderAddress.city}
                 <br />
-                {invoice.senderAddress.postCode}
+                {invoice?.senderAddress.postCode}
                 <br />
-                {invoice.senderAddress.country}
+                {invoice?.senderAddress.country}
               </p>
             </div>
           </div>
@@ -60,39 +62,39 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
               <div>
                 <h4 className='text-gray-400 dark:text-gray-300'>Invoice Date</h4>
                 <h3 className='mt-3 text-blue-900 dark:text-white'>
-                  {formatDate(invoice.createdAt)}
+                  {formatDate(invoice?.createdAt)}
                 </h3>
               </div>
               <div className='mt-8'>
                 <h4 className='text-gray-400 dark:text-gray-300'>Payment Due</h4>
                 <h3 className='mt-3 text-blue-900 dark:text-white'>
-                  {formatDate(invoice.paymentDue)}
+                  {formatDate(invoice?.paymentDue)}
                 </h3>
               </div>
             </div>
             <div className='w-1/2 flex-initial md:w-1/3'>
               <h4 className='text-gray-400 dark:text-gray-300'>Bill to</h4>
-              <h3 className='mt-3 text-blue-900 dark:text-white'>{invoice.clientName}</h3>
+              <h3 className='mt-3 text-blue-900 dark:text-white'>{invoice?.clientName}</h3>
               <p className='mt-2 text-xxs text-gray-400 dark:text-gray-300'>
-                {invoice.clientAddress.street}
+                {invoice?.clientAddress.street}
                 <br />
-                {invoice.clientAddress.city}
+                {invoice?.clientAddress.city}
                 <br />
-                {invoice.clientAddress.postCode}
+                {invoice?.clientAddress.postCode}
                 <br />
-                {invoice.clientAddress.country}
+                {invoice?.clientAddress.country}
               </p>
             </div>
             <div className='mt-8 w-full flex-initial md:mt-0 md:w-1/3'>
               <h4 className='text-gray-400 dark:text-gray-300'>Sent to</h4>
-              <h3 className='mt-3 text-blue-900 dark:text-white'>{invoice.clientEmail}</h3>
+              <h3 className='mt-3 text-blue-900 dark:text-white'>{invoice?.clientEmail}</h3>
             </div>
           </div>
           <div className='mt-10 rounded-lg bg-gray-100 pt-6 dark:bg-blue-600 md:pt-8'>
             <InvoiceItems invoice={invoice} />
             <div className='mt-6 flex items-center justify-between rounded-b-lg bg-blue-900 p-6 text-white md:mt-8 md:p-8'>
               <p className='text-xxs'>Amount Due</p>
-              <p className='text-2xl font-bold'>{formatCurrency(invoice.total)}</p>
+              <p className='text-2xl font-bold'>{formatCurrency(invoice?.total)}</p>
             </div>
           </div>
         </div>
