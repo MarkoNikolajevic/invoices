@@ -26,7 +26,7 @@ const InvoiceAction = ({
   };
 
   const markAsPaid = async () => {
-    if (invoice.status === 'paid') return;
+    if (invoice?.status === 'paid') return;
 
     invoice.status = 'paid';
     await supabaseClient.from('invoices').update({ status: 'paid' }).match({ id: invoice.id });
@@ -56,7 +56,7 @@ const InvoiceAction = ({
       >
         Delete
       </motion.button>
-      {invoice.status !== 'paid' && (
+      {invoice?.status !== 'paid' && (
         <motion.button
           className='btn-action bg-purple-500 text-white hover:bg-purple-400'
           type='button'
