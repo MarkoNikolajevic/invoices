@@ -16,8 +16,8 @@ Thank you for checking out my solution for this [FrontEnd Mentor challenge](http
 Feel free to look around and give me any feedback/suggestion you have.
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- [Solution URL](https://www.frontendmentor.io/solutions/invoice-with-nextjs-tailwindcss-typescript-supabase-S1JHPceSc)
+- [Live Site URL](https://invoices-beige.vercel.app/)
 
 ## My process
 My first step was to look at the design and decide what tools I need/want to use to complete this challenge and how I should structure my code. Then I used mobile first approach to build out the app.
@@ -33,7 +33,7 @@ My first step was to look at the design and decide what tools I need/want to use
 I also used **useContext** to pass data between components.
 
 ### What I learned
-This was the first time I used Supabase, and I learned a lot about how to use it and manage data. I also leanred how much important it is to structure and organize your code when building out an app like this.
+This was the first time I used Supabase, and I learned a lot about how to use it and manage data. I also learned how much important it is to structure and organize your code when building out an app like this.
 
 ### What I could do better
 - I could have used a more efficient way to write typescript code
