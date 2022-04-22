@@ -5,16 +5,23 @@ import { Invoice } from '../interface/invoice';
 import { formatDate, formatCurrency } from '../utils/manageFormData';
 import InvoiceStatus from './InvoiceStatus';
 import IconArrowRight from './IconArrowRight';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const InvoicePreview = () => {
   const { invoices } = useContext(InvoiceContext);
 
   return (
-    <>
+    <AnimatePresence>
       {invoices.data.map((invoice: Invoice) => {
         return (
-          <Link key={invoice.invoice_id} href={`/invoice/${invoice.id}`}>
-            <a className='mb-4 flex flex-wrap rounded-lg border-[1px] border-transparent bg-white p-6 text-blue-900 shadow-invoice transition duration-200 hover:-translate-y-1 hover:border-purple-500 dark:bg-blue-800 dark:text-white md:items-center md:justify-between md:px-8 md:py-7'>
+          <Link key={invoice.invoice_id} passHref href={`/invoice/${invoice.id}`}>
+            <motion.a
+              animate={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              exit={{ opacity: 1 }}
+              layout
+              className='mb-4 flex flex-wrap rounded-lg border-[1px] border-transparent bg-white p-6 text-blue-900 shadow-invoice transition duration-200 hover:-translate-y-1 hover:border-purple-500 dark:bg-blue-800 dark:text-white md:items-center md:justify-between md:px-8 md:py-7'
+            >
               <p className='mb-6 w-1/2 flex-initial text-xs font-bold md:order-1 md:mb-0 md:w-auto md:flex-none'>
                 <span className='text-gray-400'>#</span>
                 {invoice.id}
@@ -34,11 +41,11 @@ const InvoicePreview = () => {
               <div className='hidden md:order-6 md:block'>
                 <IconArrowRight />
               </div>
-            </a>
+            </motion.a>
           </Link>
         );
       })}
-    </>
+    </AnimatePresence>
   );
 };
 
