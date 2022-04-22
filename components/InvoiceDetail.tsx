@@ -15,7 +15,7 @@ const InvoiceDetail = ({ invoice }: { invoice: Invoice }) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  useEffect(() => {}, [invoice.status]);
+  useEffect(() => {}, [invoice?.status]);
 
   return (
     <main className={cn('relative w-full', showEdit ? 'h-screen overflow-hidden' : '')}>
