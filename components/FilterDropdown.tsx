@@ -1,10 +1,42 @@
 import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import FilterOptions from './FilterOptions';
 import { cn } from '../utils/classes';
 
 const FilterDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [check, setCheck] = useState([
+    {
+      id: 0,
+      value: 'paid',
+      checked: false
+    },
+    {
+      id: 1,
+      value: 'pending',
+      checked: false
+    },
+    {
+      id: 2,
+      value: 'draft',
+      checked: false
+    }
+  ]);
+
+  const handleCheckbox = (id: number) => {
+    setCheck(
+      check.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            checked: !item.checked
+          };
+        }
+        return { ...item, checked: false };
+      })
+    );
+  };
 
   return (
     <div className='relative inline-flex flex-col items-center justify-center'>
@@ -33,7 +65,31 @@ const FilterDropdown = () => {
           </svg>
         </button>
       </div>
-      <AnimatePresence initial={false}>{isOpen && <FilterOptions />}</AnimatePresence>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            className='absolute top-12 z-10 flex w-48 flex-col rounded-lg bg-white p-6 shadow-dropdown-light dark:bg-blue-600 dark:shadow-dropdown-dark'
+            initial='collapsed'
+            animate='open'
+            exit='collapsed'
+            variants={{
+              open: { opacity: 1, height: 'auto' },
+              collapsed: { opacity: 0, height: 0 }
+            }}
+            transition={{ duration: 0.2 }}
+          >
+            {check.map((item) => (
+              <FilterOptions
+                key={item.id}
+                checked={item.checked}
+                value={item.value}
+                id={item.id}
+                handleCheckbox={handleCheckbox}
+              />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
