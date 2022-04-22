@@ -1,9 +1,7 @@
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
-import ReactDatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useForm, SubmitHandler, useFieldArray, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
 import { Invoice } from '../interface/invoice';
 import supabaseClient from '../lib/supabase';
 import { InvoiceContext } from '../pages/_app';
@@ -30,6 +28,7 @@ const EditInvoiceForm = ({
     watch,
     formState: { errors, isSubmitSuccessful }
   } = useForm<Invoice>({
+    mode: 'onBlur',
     defaultValues: invoice
   });
 

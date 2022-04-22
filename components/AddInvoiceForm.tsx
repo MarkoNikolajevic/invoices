@@ -26,7 +26,9 @@ const AddInvoiceForm = ({
     watch,
     trigger,
     formState: { errors, isSubmitSuccessful }
-  } = useForm<Invoice>();
+  } = useForm<Invoice>({
+    mode: 'onBlur'
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
