@@ -2,11 +2,16 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import FilterOptions from './FilterOptions';
 import { cn } from '../utils/classes';
+interface IFilterDropdown {
+  id: number;
+  value: string;
+  checked: boolean;
+}
 
 const FilterDropdown = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [check, setCheck] = useState([
+  const [check, setCheck] = useState<IFilterDropdown[]>([
     {
       id: 0,
       value: 'paid',
@@ -24,7 +29,7 @@ const FilterDropdown = () => {
     }
   ]);
 
-  const handleCheckbox = (id: number) => {
+  const handleCheckbox = async (id: number) => {
     setCheck(
       check.map((item) => {
         if (item.id === id) {
