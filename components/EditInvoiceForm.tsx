@@ -42,7 +42,7 @@ const EditInvoiceForm = ({
       ...data,
       createdAt: dayjs(data.createdAt).format('YYYY-MM-DD'),
       paymentDue: dayjs(data.createdAt).add(data.paymentTerms, 'day').format('YYYY-MM-DD'),
-      status: 'pending',
+      status: data.status === 'draft' ? 'pending' : data.status,
       total: calculateTotalPrice(data.items)
     };
     await supabaseClient.from('invoices').update(data).match({ id: invoice.id });
