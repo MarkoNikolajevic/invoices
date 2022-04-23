@@ -9,6 +9,8 @@ import { defaultFormValues } from '../utils/defaultFormValues';
 import { calculateTotalPrice, createId } from '../utils/manageFormData';
 import { DateInput, ErrorMessage, Label } from './FormElements';
 import IconDelete from './IconDelete';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validationSchema } from '../utils/schemaValidation';
 
 const AddInvoiceForm = ({
   setShowAddInvoice
@@ -27,6 +29,7 @@ const AddInvoiceForm = ({
     trigger,
     formState: { errors, isSubmitSuccessful }
   } = useForm<Invoice>({
+    resolver: yupResolver(validationSchema),
     mode: 'onBlur'
   });
 
@@ -79,12 +82,12 @@ const AddInvoiceForm = ({
               label='Street Address'
               error={errors.senderAddress?.street}
             />
-            <ErrorMessage error={errors.senderAddress?.street?.type} />
+            <ErrorMessage error={errors.senderAddress?.street?.message} />
           </div>
           <input
             type='text'
             id='sender-street'
-            {...register('senderAddress.street', { required: true })}
+            {...register('senderAddress.street')}
             className={cn(
               'input',
               errors.senderAddress?.street
@@ -96,12 +99,12 @@ const AddInvoiceForm = ({
         <div className='col-start-1 col-end-2 flex flex-col'>
           <div className='flex justify-between'>
             <Label htmlFor='sender-city' label='City' error={errors.senderAddress?.city} />
-            <ErrorMessage error={errors.senderAddress?.city?.type} />
+            <ErrorMessage error={errors.senderAddress?.city?.message} />
           </div>
           <input
             type='text'
             id='sender-city'
-            {...register('senderAddress.city', { required: true })}
+            {...register('senderAddress.city')}
             className={cn(
               'input',
               errors.senderAddress?.city
@@ -117,12 +120,12 @@ const AddInvoiceForm = ({
               label='Post Code'
               error={errors.senderAddress?.postCode}
             />
-            <ErrorMessage error={errors.senderAddress?.postCode?.type} />
+            <ErrorMessage error={errors.senderAddress?.postCode?.message} />
           </div>
           <input
             type='text'
             id='sender-postCode'
-            {...register('senderAddress.postCode', { required: true })}
+            {...register('senderAddress.postCode')}
             className={cn(
               'input',
               errors.senderAddress?.postCode
@@ -134,12 +137,12 @@ const AddInvoiceForm = ({
         <div className='col-span-full flex flex-col md:col-start-3 md:col-end-4'>
           <div className='flex justify-between'>
             <Label htmlFor='sender-country' label='Country' error={errors.senderAddress?.country} />
-            <ErrorMessage error={errors.senderAddress?.country?.type} />
+            <ErrorMessage error={errors.senderAddress?.country?.message} />
           </div>
           <input
             type='text'
             id='sender-country'
-            {...register('senderAddress.country', { required: true })}
+            {...register('senderAddress.country')}
             className={cn(
               'input',
               errors.senderAddress?.country
@@ -155,12 +158,12 @@ const AddInvoiceForm = ({
         <div className='col-span-full flex flex-col'>
           <div className='flex justify-between'>
             <Label htmlFor='client-name' label="Client's Name" error={errors.clientName} />
-            <ErrorMessage error={errors.clientName?.type} />
+            <ErrorMessage error={errors.clientName?.message} />
           </div>
           <input
             type='text'
             id='client-name'
-            {...register('clientName', { required: true })}
+            {...register('clientName')}
             className={cn(
               'input',
               errors.clientName
@@ -172,13 +175,13 @@ const AddInvoiceForm = ({
         <div className='col-span-full flex flex-col'>
           <div className='flex justify-between'>
             <Label htmlFor='client-email' label="Client's Email" error={errors.clientEmail} />
-            <ErrorMessage error={errors.clientEmail?.type} />
+            <ErrorMessage error={errors.clientEmail?.message} />
           </div>
           <input
             type='text'
             id='client-email'
             placeholder='e.g. email@example.com'
-            {...register('clientEmail', { required: true })}
+            {...register('clientEmail')}
             className={cn(
               'input',
               errors.clientEmail
@@ -194,12 +197,12 @@ const AddInvoiceForm = ({
               label='Street Address'
               error={errors.clientAddress?.street}
             />
-            <ErrorMessage error={errors.clientAddress?.street?.type} />
+            <ErrorMessage error={errors.clientAddress?.street?.message} />
           </div>
           <input
             type='text'
             id='client-street'
-            {...register('clientAddress.street', { required: true })}
+            {...register('clientAddress.street')}
             className={cn(
               'input',
               errors.clientAddress?.street
@@ -211,12 +214,12 @@ const AddInvoiceForm = ({
         <div className='col-start-1 col-end-2 flex flex-col'>
           <div className='flex justify-between'>
             <Label htmlFor='client-city' label='City' error={errors.clientAddress?.city} />
-            <ErrorMessage error={errors.clientAddress?.city?.type} />
+            <ErrorMessage error={errors.clientAddress?.city?.message} />
           </div>
           <input
             type='text'
             id='client-city'
-            {...register('clientAddress.city', { required: true })}
+            {...register('clientAddress.city')}
             className={cn(
               'input',
               errors.clientAddress?.city
@@ -232,12 +235,12 @@ const AddInvoiceForm = ({
               label='Post Code'
               error={errors.clientAddress?.postCode}
             />
-            <ErrorMessage error={errors.clientAddress?.postCode?.type} />
+            <ErrorMessage error={errors.clientAddress?.postCode?.message} />
           </div>
           <input
             type='text'
             id='client-postCode'
-            {...register('clientAddress.postCode', { required: true })}
+            {...register('clientAddress.postCode')}
             className={cn(
               'input',
               errors.clientAddress?.postCode
@@ -249,12 +252,12 @@ const AddInvoiceForm = ({
         <div className='col-span-full flex flex-col md:col-start-3 md:col-end-4'>
           <div className='flex justify-between'>
             <Label htmlFor='client-country' label='Country' error={errors.clientAddress?.country} />
-            <ErrorMessage error={errors.clientAddress?.country?.type} />
+            <ErrorMessage error={errors.clientAddress?.country?.message} />
           </div>
           <input
             type='text'
             id='client-country'
-            {...register('clientAddress.country', { required: true })}
+            {...register('clientAddress.country')}
             className={cn(
               'input',
               errors.clientAddress?.country
@@ -290,12 +293,15 @@ const AddInvoiceForm = ({
           </select>
         </div>
         <div className='col-span-full flex flex-col'>
-          <Label htmlFor='description' label='Project / Description' />
+          <div className='flex justify-between'>
+            <Label htmlFor='description' label='Project / Description' error={errors.description} />
+            <ErrorMessage error={errors.description?.message} />
+          </div>
           <input
             type='text'
             id='description'
             placeholder='e.g. Graphic Design Service'
-            {...register('description', { required: true })}
+            {...register('description')}
             className={cn(
               'input',
               errors.description

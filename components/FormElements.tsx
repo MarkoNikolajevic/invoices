@@ -19,11 +19,7 @@ export const Label = ({ ...props }) => {
 };
 
 export const ErrorMessage = ({ ...props }) => {
-  return (
-    <small className='text-xxs font-semibold text-red-500'>
-      {props.error === 'required' && "can't be empty"}
-    </small>
-  );
+  return <small className='text-xxs font-semibold text-red-500'>{props.error}</small>;
 };
 
 export const Input = ({ ...props }) => {
