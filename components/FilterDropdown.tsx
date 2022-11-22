@@ -19,7 +19,7 @@ const FilterDropdown = () => {
     let fetchedInvoice: Invoice | null;
 
     fetchedInvoice = (await supabaseClient
-      .from<Invoice>('invoices')
+      .from('invoices')
       .select()
       .filter('status', 'eq', filtered)
       .order('createdAt', { ascending: false })) as unknown as Invoice;

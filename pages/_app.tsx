@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     let fetchedInvoice: Invoice | null;
 
     fetchedInvoice = (await supabaseClient
-      .from<Invoice>('invoices')
+      .from('invoices')
       .select()
       .order('createdAt', { ascending: false })) as unknown as Invoice;
 

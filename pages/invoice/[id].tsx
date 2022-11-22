@@ -9,7 +9,7 @@ const SingleInvoicePage: NextPage<any> = ({ invoice }: { invoice: Invoice }) => 
 
 export const getStaticPaths = async () => {
   const { data } = await supabaseClient.from('invoices').select('id');
-  const paths = data?.map((invoice: Invoice) => ({
+  const paths = data?.map((invoice) => ({
     params: { id: invoice.id }
   }));
 
