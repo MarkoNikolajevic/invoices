@@ -14,7 +14,11 @@ const InvoicePreview = () => {
     <AnimatePresence>
       {invoices.data.map((invoice: Invoice) => {
         return (
-          <Link key={invoice.invoice_id} passHref href={`/invoice/${invoice.id}`}>
+          <Link
+            key={invoice.invoice_id}
+            passHref
+            href={`/invoice/${invoice.id}`}
+            legacyBehavior>
             <motion.a
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
