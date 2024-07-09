@@ -1,3 +1,5 @@
 # TODO
 
-- [] connect neon db and drizzle
+- [x] connect neon db and drizzle
+- [] add ui
+- [] add auth
